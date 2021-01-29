@@ -10,7 +10,6 @@ namespace concurrency::containers
 {
     class StealingQueue
     {
-        // using Data = FuncWapper;
         using Data = std::function<void()>;
 
     public:

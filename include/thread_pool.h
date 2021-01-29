@@ -16,7 +16,6 @@ namespace concurrency::pool
 {
     class ThreadPool
     {
-        // using TaskType = FuncWapper;
         using TaskType = std::function<void()>;
 
     public:
