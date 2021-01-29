@@ -1,6 +1,8 @@
-#include "stealing_queue.h"
+#include "containers/stealing_queue.h"
+#include <iostream>
+#include <thread>
 
-namespace concurrency::pool
+namespace concurrency::containers
 {
     // StealingQueue::StealingQueue(StealingQueue &&rhs)
     // {
@@ -47,5 +49,4 @@ namespace concurrency::pool
         return queue_.empty();
     }
 
-    
 } // namespace concurrency::pool

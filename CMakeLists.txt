@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(concurrency_utils
         LANGUAGES CXX)
 
+set(CMAKE_BUILD_TYPE "Debug")
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 include(CheckCXXCompilerFlag)
@@ -18,9 +19,15 @@ include_directories(
     include
 )
 
-# add_custom_target(fff SHARED "")
+
 add_library(pool SHARED 
-            src/stealing_queue.cpp)
+            src/stealing_queue.cpp
+            src/thread_pool.cpp)
+
+target_include_directories(pool
+            INTERFACE
+            $<BUILD_INTERFACE: include>
+            )
 target_link_libraries(pool
             INTERFACE
             pthread)
@@ -30,3 +37,4 @@ add_executable(containers
 
 target_link_libraries(containers
             pool)
+

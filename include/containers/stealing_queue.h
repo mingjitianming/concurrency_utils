@@ -1,15 +1,17 @@
 #ifndef STEALING_QUEUE_H
 #define STEALING_QUEUE_H
 
-#include "function_wapper.h"
+// #include "function_wapper.h"
 #include <deque>
+#include <functional>
 #include <mutex>
 
-namespace concurrency::pool
+namespace concurrency::containers
 {
     class StealingQueue
     {
-        using Data = FuncWapper;
+        // using Data = FuncWapper;
+        using Data = std::function<void()>;
 
     public:
         StealingQueue() = default;

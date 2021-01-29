@@ -55,6 +55,7 @@ namespace concurrency
                     return false;
                 data = queue.front();
                 queue.pop();
+                return true;
             }
 
             auto try_pop()
