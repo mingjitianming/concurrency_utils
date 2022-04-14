@@ -14,11 +14,11 @@ namespace concurrency::pool
             queues_.reserve(thread_count_);
             threads_.reserve(thread_count_);
             auto is_ready = std::promise<void>();
-            std::shared_future<void> ready = is_ready.get_future();
+            std::shared_future<void> ready = is_ready.get_future().share();
             for (unsigned int i = 0; i < thread_count_; ++i)
             {
                 queues_.emplace_back(std::make_unique<containers::StealingQueue>());
-                threads_.emplace_back(std::jthread(&ThreadPool::threadWorker, this, i, std::ref(ready)));
+                threads_.emplace_back(std::thread(&ThreadPool::threadWorker, this, i, ready));
             }
             is_ready.set_value();
         }
@@ -34,7 +34,7 @@ namespace concurrency::pool
         done_ = true;
     }
 
-    void ThreadPool::threadWorker(const unsigned thread_id, std::shared_future<void> &ready)
+    void ThreadPool::threadWorker(const unsigned thread_id, std::shared_future<void> ready)
     {
         thread_id_ = thread_id;
         local_queue_ = queues_[thread_id_].get();

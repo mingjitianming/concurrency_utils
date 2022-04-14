@@ -26,7 +26,7 @@ namespace concurrency::pool
         auto submit(Func f, Args... args);
 
     private:
-        void threadWorker(const unsigned thread_id, std::shared_future<void> &ready);
+        void threadWorker(const unsigned thread_id, std::shared_future<void> ready);
         bool popFromLocal(TaskType &task);
         bool popFromQueues(TaskType &task);
         bool popFromOtherThread(TaskType &task);
